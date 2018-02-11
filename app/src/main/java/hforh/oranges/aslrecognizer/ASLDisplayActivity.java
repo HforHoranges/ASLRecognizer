@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -212,4 +213,9 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         Log.d("AAAAADAS" , "Returning unfound string: " + words);
         return words;
     }
+
+    public void backButtonClick() {
+        finish();
+    }
+
 }

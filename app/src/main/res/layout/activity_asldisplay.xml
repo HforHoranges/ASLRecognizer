@@ -23,7 +23,9 @@
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/player"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+    </com.google.android.youtube.player.YouTubePlayerView>
 
     <LinearLayout
         android:id="@+id/other_views"
@@ -53,5 +55,12 @@
             android:textSize="14sp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="backButtonClick"
+        android:text="BACK" />
 
 </LinearLayout>
