@@ -18,12 +18,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
     private String textToTranslate;
-    private String videoLinks;
-
+    private ArrayList<SignedWordVideo> videos = new ArrayList<>();
+    private static int wordCount = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +82,7 @@ public class MainActivity extends Activity {
                         Log.d("OCR", "Sorry, no video found, try again");
                     }
                     else {
-                        videoLinks = stringBuffer.toString();
+                        videos.add(new SignedWordVideo(video, word));
                     }
                     Log.d("ocr", "Closing connection");
                     httpInput.close();
@@ -97,8 +98,8 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if (videoLinks == "" || videoLinks == null) {
-                ((TextView) findViewById(R.id.statusTextBox)).setText("Sorry, no video found :(");
+            if (videos.isEmpty()) {
+                ((TextView) findViewById(R.id.statusTextBox)).setText("Sorry, no videos found :(");
                 ((Button)findViewById(R.id.gobackbutton)).setVisibility(View.VISIBLE);
             }
             else {
@@ -109,13 +110,18 @@ public class MainActivity extends Activity {
     }
 
     private void startAppropriateActivity() {
-        if (videoLinks.contains("youtube")) {
-            Intent intent = new Intent(MainActivity.this, ASLDisplayActivity.class);
-            intent.putExtra("videoLinks", videoLinks);
-            startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, ASLDisplayActivity.class);
+        for(SignedWordVideo video : videos){
+            if (video.getVideoLink().contains("youtube")) {
+                Log.d("AAAAAA", "Putting linnk and word: " + video.getVideoLink() + video.getWordName());
+                intent.putExtra("link" + wordCount, video.getVideoLink());
+                intent.putExtra("word" + wordCount, video.getWordName());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                wordCount++;
+            }
         }
-        else{
-
-        }
+        intent.putExtra("numberOfWords", wordCount);
+        wordCount = 0;
+        startActivity(intent);
     }
 }

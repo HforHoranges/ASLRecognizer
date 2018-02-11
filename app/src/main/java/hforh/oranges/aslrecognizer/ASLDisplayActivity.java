@@ -1,31 +1,21 @@
 package hforh.oranges.aslrecognizer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-import java.util.regex.Matcher;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -43,9 +33,11 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
     private YouTubePlayerView playerView;
     private YouTubePlayer player;
     private View otherViews;
-    private String youtubeVideoID;
+    private ArrayList<SignedWordYoutubeID> youtubeVideoIDs = new ArrayList<>();
 
     private boolean fullscreen;
+    private int numberOfVideos;
+    private int currentlyPlayingVideoIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +88,15 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
 
             @Override
             public void onVideoEnded() {
-                player.loadVideo(youtubeVideoID);
+                if (currentlyPlayingVideoIndex < youtubeVideoIDs.size() - 1) {
+                    currentlyPlayingVideoIndex++;
+                }
+                else if (youtubeVideoIDs.size() != 1){
+                    currentlyPlayingVideoIndex = currentlyPlayingVideoIndex % (youtubeVideoIDs.size() - 1);
+                }
+                player.loadVideo(youtubeVideoIDs.get(currentlyPlayingVideoIndex).getVideoID());
+                ((TextView)findViewById(R.id.videonametextview))
+                        .setText(youtubeVideoIDs.get(currentlyPlayingVideoIndex).getWordName());
             }
 
             @Override
@@ -105,7 +105,9 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
             }
         });
         if (!wasRestored) {
-            player.loadVideo(youtubeVideoID);
+            player.loadVideo(youtubeVideoIDs.get(currentlyPlayingVideoIndex).getVideoID());
+            ((TextView)findViewById(R.id.videonametextview))
+                    .setText(youtubeVideoIDs.get(currentlyPlayingVideoIndex).getWordName());
         }
     }
 
@@ -178,11 +180,16 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
 
     public void getYoutubeVideoIDFromIntent() {
         Intent intent = getIntent();
-        String url = intent.getStringExtra("videoLinks");
-        String[] multipleURLs = url.split(Pattern.quote(" "));
-        String[] urlSplit1 = url.split(Pattern.quote("embed/"));
-        String[] urlSplit2 = urlSplit1[1].split(Pattern.quote("?"));
-        youtubeVideoID = urlSplit2[0];
-            Log.d("AAAAAA", youtubeVideoID);
+        int numberOfWords = intent.getIntExtra("numberOfWords", 0);
+        numberOfVideos = numberOfWords;
+        for (int i = 0; i < numberOfWords; i++){
+            String url = intent.getStringExtra("link" + i);
+            String[] urlSplit1 = url.split(Pattern.quote("embed/"));
+            String[] urlSplit2 = urlSplit1[1].split(Pattern.quote("?"));
+            String wordName = intent.getStringExtra("word" + i);
+            SignedWordYoutubeID youtubeVideoID = new SignedWordYoutubeID(urlSplit2[0], wordName);
+            Log.d("AAAAAA", youtubeVideoID.getVideoID());
+            youtubeVideoIDs.add(youtubeVideoID);
+        }
     }
 }
