@@ -18,7 +18,7 @@ public class EditTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_text);
     }
 
-       protected void populateText() {
+    protected void populateText() {
         EditText initialText = (EditText) findViewById(R.id.textBox);
         initialText.setText(text);
 
