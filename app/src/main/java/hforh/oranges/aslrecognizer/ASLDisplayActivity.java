@@ -179,10 +179,6 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         doLayout();
     }
 
-    public void backButtonClick() {
-        finish();
-    }
-
     public void getYoutubeVideoIDFromIntent() {
         Intent intent = getIntent();
         int numberOfWords = intent.getIntExtra("numberOfWords", 0);
@@ -196,6 +192,10 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
             Log.d("AAAAAA", youtubeVideoID.getVideoID());
             youtubeVideoIDs.add(youtubeVideoID);
         }
+    }
+
+    public void backButtonClick() {
+        finish();
     }
 
 }
