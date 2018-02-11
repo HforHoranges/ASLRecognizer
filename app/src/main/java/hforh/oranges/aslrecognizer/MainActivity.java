@@ -62,11 +62,12 @@ public class MainActivity extends Activity {
                     String inputLine, video = "";
                     while ((inputLine = httpInput.readLine()) != null) {
                         if (inputLine.contains(".mp4")) {
-                            video = inputLine.substring(inputLine.lastIndexOf("content=") + 8);
+                            continue;
+                            /*video = inputLine.substring(inputLine.lastIndexOf("content=") + 8);
                             video = video.replace("\"", "");
                             Log.d("OCR", video.toString());
                             stringBuffer.append(video);
-                            break;
+                            break;*/
                         }
                         else if ((inputLine.contains("youtube"))){
                             video = inputLine.substring((inputLine.lastIndexOf("src=") + 8));
