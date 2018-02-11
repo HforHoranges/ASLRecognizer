@@ -38,6 +38,7 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
     private boolean fullscreen;
     private int numberOfVideos;
     private int currentlyPlayingVideoIndex;
+    private ArrayList<String> listOfUnfoundWords = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
             player.loadVideo(youtubeVideoIDs.get(currentlyPlayingVideoIndex).getVideoID());
             ((TextView)findViewById(R.id.videonametextview))
                     .setText(youtubeVideoIDs.get(currentlyPlayingVideoIndex).getWordName());
+            ((TextView)findViewById(R.id.notfoundtextview)).setText(getUnfoundWordsString());
         }
     }
 
@@ -184,12 +186,30 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         numberOfVideos = numberOfWords;
         for (int i = 0; i < numberOfWords; i++){
             String url = intent.getStringExtra("link" + i);
-            String[] urlSplit1 = url.split(Pattern.quote("embed/"));
-            String[] urlSplit2 = urlSplit1[1].split(Pattern.quote("?"));
             String wordName = intent.getStringExtra("word" + i);
-            SignedWordYoutubeID youtubeVideoID = new SignedWordYoutubeID(urlSplit2[0], wordName);
-            Log.d("AAAAAA", youtubeVideoID.getVideoID());
-            youtubeVideoIDs.add(youtubeVideoID);
+            if (!url.isEmpty()) {
+                String[] urlSplit1 = url.split(Pattern.quote("embed/"));
+                String[] urlSplit2 = urlSplit1[1].split(Pattern.quote("?"));
+                SignedWordYoutubeID youtubeVideoID = new SignedWordYoutubeID(urlSplit2[0], wordName);
+                Log.d("AAAAAA", youtubeVideoID.getVideoID());
+                youtubeVideoIDs.add(youtubeVideoID);
+            }
+            else {
+                Log.d("AAAAAA", "UNFOUND WORD: " + wordName);
+                listOfUnfoundWords.add(wordName);
+            }
         }
+    }
+
+    public String  getUnfoundWordsString() {
+        if (listOfUnfoundWords.size() == 0){
+            return "";
+        }
+        String words = "Could not find words: ";
+        for(String word : listOfUnfoundWords){
+            words += "[" + word + "] ";
+        }
+        Log.d("AAAAADAS" , "Returning unfound string: " + words);
+        return words;
     }
 }

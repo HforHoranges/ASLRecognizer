@@ -31,13 +31,26 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/videonametextview"
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:height="100dp"
+            android:gravity="center_horizontal"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/notfoundtextview"
+            android:layout_width="match_parent"
+            android:height="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAllCaps="false"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

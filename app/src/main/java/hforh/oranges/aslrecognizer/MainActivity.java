@@ -92,9 +92,7 @@ public class MainActivity extends Activity {
                     if (video == "") {
                         Log.d("OCR", "Sorry, no video found, try again");
                     }
-                    else {
-                        videos.add(new SignedWordVideo(video, word));
-                    }
+                    videos.add(new SignedWordVideo(video, word));
                     Log.d("ocr", "Closing connection");
                     httpInput.close();
 
@@ -109,7 +107,7 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if (videos.isEmpty()) {
+            if (videos.isEmpty() || ifNoURLSFound()) {
                 ((TextView) findViewById(R.id.statusTextBox)).setText("Sorry, no videos found :(");
                 ((Button)findViewById(R.id.gobackbutton)).setVisibility(View.VISIBLE);
                 ((Button)findViewById(R.id.typetextbutton)).setVisibility(View.VISIBLE);
@@ -121,16 +119,23 @@ public class MainActivity extends Activity {
         }
     }
 
+    private boolean ifNoURLSFound() {
+        for(SignedWordVideo video : videos){
+            if (!video.getVideoLink().isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void startAppropriateActivity() {
         Intent intent = new Intent(MainActivity.this, ASLDisplayActivity.class);
         for(SignedWordVideo video : videos){
-            if (video.getVideoLink().contains("youtube")) {
-                Log.d("AAAAAA", "Putting linnk and word: " + video.getVideoLink() + video.getWordName());
-                intent.putExtra("link" + wordCount, video.getVideoLink());
-                intent.putExtra("word" + wordCount, video.getWordName());
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                wordCount++;
-            }
+            Log.d("AAAAAA", "Putting linnk and word: " + video.getVideoLink() + video.getWordName());
+            intent.putExtra("link" + wordCount, video.getVideoLink());
+            intent.putExtra("word" + wordCount, video.getWordName());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            wordCount++;
         }
         intent.putExtra("numberOfWords", wordCount);
         wordCount = 0;
