@@ -21,19 +21,23 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <Button
-        android:id="@+id/gobackbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:background="@color/buttonColor"
-        android:width="90dp"
-        android:text="Go Back"
-        android:textAllCaps="true"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/statusTextBox"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_editor_absoluteX="147dp" />
+    <LinearLayout
+        android:layout_width="90dp"
+        android:layout_height="234dp"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="285dp">
+
+        <Button
+            android:id="@+id/gobackbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:width="90dp"
+            android:background="@color/buttonColor"
+            android:gravity="center"
+            android:text="Go Back"
+            android:textAllCaps="true"
+            android:visibility="invisible" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
