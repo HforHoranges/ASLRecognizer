@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -178,6 +179,10 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         doLayout();
     }
 
+    public void backButtonClick() {
+        finish();
+    }
+
     public void getYoutubeVideoIDFromIntent() {
         Intent intent = getIntent();
         int numberOfWords = intent.getIntExtra("numberOfWords", 0);
@@ -192,4 +197,5 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
             youtubeVideoIDs.add(youtubeVideoID);
         }
     }
+
 }
