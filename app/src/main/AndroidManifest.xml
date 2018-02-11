@@ -3,6 +3,7 @@
     package="hforh.oranges.aslrecognizer">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OcrCaptureActivity">
+        <activity android:name=".EditTextActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ASLDisplayActivity" />
-        <activity android:name=".EditTextActivity"></activity>
+        <activity android:name=".OcrCaptureActivity"></activity>
     </application>
 
 </manifest>
