@@ -97,7 +97,7 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
     }
 
     /**
-     * Draws the text block annotations for position, size, and raw value on the supplied canvas.
+     * Draws the textToTranslate block annotations for position, size, and raw value on the supplied canvas.
      */
     @Override
     public void draw(Canvas canvas) {
@@ -113,7 +113,7 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         rect.bottom = translateY(rect.bottom);
         canvas.drawRect(rect, sRectPaint);
 
-        // Break the text into multiple lines and draw each one according to its own bounding box.
+        // Break the textToTranslate into multiple lines and draw each one according to its own bounding box.
         List<? extends Text> textComponents = mText.getComponents();
         for(Text currentText : textComponents) {
             float left = translateX(currentText.getBoundingBox().left);

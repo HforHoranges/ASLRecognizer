@@ -66,6 +66,6 @@ public class ASLDisplayActivity extends AppCompatActivity {
         });
         WebSettings webSettings = displayYoutubeVideo . getSettings ();
         webSettings.setJavaScriptEnabled(true);
-        displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
+        displayYoutubeVideo.loadData(frameVideo, "textToTranslate/html", "utf-8");
     }
 }
