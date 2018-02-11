@@ -1,5 +1,6 @@
 package hforh.oranges.aslrecognizer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-public class EditTextActivity extends AppCompatActivity {
+public class EditTextActivity extends Activity {
 
     public String textToTranslate;
 
@@ -23,6 +24,12 @@ public class EditTextActivity extends AppCompatActivity {
     protected void populateText() {
         EditText initialText = (EditText) findViewById(R.id.textBox);
         initialText.setText(textToTranslate);
+        ((Button)findViewById(R.id.backButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ((Button)findViewById(R.id.doneEditButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

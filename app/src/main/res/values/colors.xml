@@ -3,8 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="otherAccentColor">#FF4F09</color>
-    <color name="actionBarToolbarColor">#55F2AF</color>
-    <color name="backgroundColor">#fff1ec</color>
-    <color name="buttonColor">#FF6D33</color>
+    <color name="otherAccentColor">#0084b4</color>
+    <color name="actionBarToolbarColor">#1dcaff</color>
+    <color name="backgroundColor">	#ffffff</color>
+    <color name="buttonColor">#00aced</color>
 </resources>

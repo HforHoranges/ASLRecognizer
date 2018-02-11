@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class DashboardWelcomeScreen extends AppCompatActivity {
+public class DashboardWelcomeScreen extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

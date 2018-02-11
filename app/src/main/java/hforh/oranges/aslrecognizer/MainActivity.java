@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
                         }
                     }
                     if (video == "") {
-                        Log.d("OCR", "Sorry no video found, try again");
+                        Log.d("OCR", "Sorry, no video found, try again");
                     }
                     else {
                         videoLinks = stringBuffer.toString();
@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             if (videoLinks == "" || videoLinks == null) {
-                ((TextView) findViewById(R.id.statusTextBox)).setText("Sorry no video found :(");
+                ((TextView) findViewById(R.id.statusTextBox)).setText("Sorry, no video found :(");
                 ((Button)findViewById(R.id.gobackbutton)).setVisibility(View.VISIBLE);
             }
             else {

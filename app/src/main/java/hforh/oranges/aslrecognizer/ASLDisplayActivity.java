@@ -56,6 +56,7 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         otherViews = findViewById(R.id.other_views);
 
         playerView.initialize(DeveloperKey.DEVELOPER_KEY, this);
+
         getYoutubeVideoIDFromIntent();
         doLayout();
     }
@@ -71,6 +72,38 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         // Specify that we want to handle fullscreen behavior ourselves.
         player.addFullscreenControlFlag(YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
         player.setOnFullscreenListener(this);
+        player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS);
+        player.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
+            @Override
+            public void onLoading() {
+
+            }
+
+            @Override
+            public void onLoaded(String s) {
+
+            }
+
+            @Override
+            public void onAdStarted() {
+
+            }
+
+            @Override
+            public void onVideoStarted() {
+
+            }
+
+            @Override
+            public void onVideoEnded() {
+                player.loadVideo(youtubeVideoID);
+            }
+
+            @Override
+            public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+            }
+        });
         if (!wasRestored) {
             player.loadVideo(youtubeVideoID);
         }

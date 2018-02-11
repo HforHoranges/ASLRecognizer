@@ -393,6 +393,7 @@ public final class OcrCaptureActivity extends Activity {
             text = graphic.getTextBlock();
             if (text != null && text.getValue() != null) {
                 Log.d(TAG, "Sending textToTranslate to edit textToTranslate activity: " + text.getValue());
+                Toast.makeText(OcrCaptureActivity.this, "Text: " + text.getValue(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OcrCaptureActivity.this, EditTextActivity.class);
                 intent.putExtra("textToTranslate", text.getValue());
                 startActivity(intent);
