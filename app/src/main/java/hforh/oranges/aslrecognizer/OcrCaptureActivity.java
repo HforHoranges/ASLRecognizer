@@ -62,7 +62,7 @@ import java.util.Locale;
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and contents of each TextBlock.
  */
-public final class OcrCaptureActivity extends AppCompatActivity {
+public final class OcrCaptureActivity extends Activity {
     private static final String TAG = "OcrCaptureActivity";
 
     // Intent request code to handle updating play services if needed.
@@ -114,7 +114,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
-        Snackbar.make(mGraphicOverlay, "Tap to Speak. Pinch/Stretch to zoom",
+        /*Snackbar.make(mGraphicOverlay, "Tap to Speak. Pinch/Stretch to zoom",
                 Snackbar.LENGTH_LONG)
                 .show();
 
@@ -131,7 +131,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                         }
                     }
                 };
-        tts = new TextToSpeech(this.getApplicationContext(), listener);
+        tts = new TextToSpeech(this.getApplicationContext(), listener);*/
     }
 
     /**
