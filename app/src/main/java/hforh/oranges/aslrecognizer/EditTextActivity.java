@@ -19,7 +19,7 @@ public class EditTextActivity extends AppCompatActivity {
         populateText();
     }
 
-       protected void populateText() {
+    protected void populateText() {
         EditText initialText = (EditText) findViewById(R.id.textBox);
         initialText.setText(textToTranslate);
 
