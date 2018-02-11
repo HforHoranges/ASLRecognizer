@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public class GetHTML extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            String urlLink = "http://www.signasl.org/sign/orange";
+            String urlLink = "http://www.signasl.org/sign/black";
             URL url;
             try {
                 url = new URL(urlLink);
@@ -36,11 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
                 BufferedReader httpInput = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuffer stringBuffer = new StringBuffer();
-                String inputLine;
+                String inputLine, video = "";
                 while ((inputLine = httpInput.readLine()) != null) {
-                    Log.d("OCR", inputLine.toString());
-
-                    stringBuffer.append(inputLine);
+                    if (inputLine.contains(".mp4")) {
+                        video = inputLine.substring(inputLine.lastIndexOf("content=") + 8);
+                        video = video.replace("\"", "");
+                        Log.d("OCR", video.toString());
+                        stringBuffer.append(video);
+                        break;
+                    } else {
+                        Log.d("OCR", "Sorry no video found, try again");
+                    }
                 }
                 Log.d("ocr", "Closing connection");
                 httpInput.close();
