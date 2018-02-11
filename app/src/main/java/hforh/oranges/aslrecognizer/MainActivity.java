@@ -29,6 +29,18 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getTextToTranslateFromIntent();
+        ((Button)findViewById(R.id.typetextbutton)).setVisibility(View.INVISIBLE);
+        ((Button)findViewById(R.id.typetextbutton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EditTextActivity.class);
+                intent.putExtra("textToTranslate", textToTranslate);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         ((Button)findViewById(R.id.gobackbutton)).setVisibility(View.INVISIBLE);
         ((Button)findViewById(R.id.gobackbutton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,13 +48,12 @@ public class MainActivity extends Activity {
                 finish();
             }
         });
-        getTextToTranslateFromIntent();
         new GetHTML().execute();
     }
 
     public void getTextToTranslateFromIntent() {
         Intent intent = getIntent();
-        textToTranslate = intent.getStringExtra("textToTranslate2");
+        textToTranslate = intent.getStringExtra("textToTranslate");
     }
 
     public class GetHTML extends AsyncTask<Void, Void, Void> {
@@ -101,6 +112,7 @@ public class MainActivity extends Activity {
             if (videos.isEmpty()) {
                 ((TextView) findViewById(R.id.statusTextBox)).setText("Sorry, no videos found :(");
                 ((Button)findViewById(R.id.gobackbutton)).setVisibility(View.VISIBLE);
+                ((Button)findViewById(R.id.typetextbutton)).setVisibility(View.VISIBLE);
             }
             else {
                 startAppropriateActivity();

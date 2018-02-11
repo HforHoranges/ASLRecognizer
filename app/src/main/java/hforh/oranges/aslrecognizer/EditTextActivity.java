@@ -36,7 +36,7 @@ public class EditTextActivity extends Activity {
                 EditText editedText = (EditText) findViewById(R.id.textBox);
                 textToTranslate = editedText.getText().toString(); // feed this into translator
                 Intent intent = new Intent(EditTextActivity.this, MainActivity.class);
-                intent.putExtra("textToTranslate2", textToTranslate);
+                intent.putExtra("textToTranslate", textToTranslate);
                 startActivity(intent);
                 finish();
             }
