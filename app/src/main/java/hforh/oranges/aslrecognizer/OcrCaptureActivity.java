@@ -341,8 +341,6 @@ public final class OcrCaptureActivity extends AppCompatActivity {
      * @return true if the tap was on a TextBlock
      */
     private boolean onTap(float rawX, float rawY) {
-        Intent intent = new Intent(OcrCaptureActivity.this, ASLDisplayActivity.class);
-        startActivity(intent);
         OcrGraphic graphic = mGraphicOverlay.getGraphicAtLocation(rawX, rawY);
         TextBlock text = null;
         if (graphic != null) {
