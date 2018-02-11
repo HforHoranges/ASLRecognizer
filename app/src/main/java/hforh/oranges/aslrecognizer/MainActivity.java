@@ -1,5 +1,6 @@
 package hforh.oranges.aslrecognizer;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public class GetHTML extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            String urlLink = "http://www.signasl.org/sign/black";
+            String urlLink = "http://www.signasl.org/sign/orange";
             URL url;
             try {
                 url = new URL(urlLink);
@@ -44,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("OCR", video.toString());
                         stringBuffer.append(video);
                         break;
-                    } else {
-                        Log.d("OCR", "Sorry no video found, try again");
                     }
+                }
+                if (video == "") {
+                    Log.d("OCR", "Sorry no video found, try again");
                 }
                 Log.d("ocr", "Closing connection");
                 httpInput.close();
-
 
             } catch (Exception e) {
                 Log.e("ocr", "Could not get string from URL.");
