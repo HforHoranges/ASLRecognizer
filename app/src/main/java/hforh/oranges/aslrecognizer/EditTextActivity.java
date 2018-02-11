@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -22,17 +23,17 @@ public class EditTextActivity extends AppCompatActivity {
     protected void populateText() {
         EditText initialText = (EditText) findViewById(R.id.textBox);
         initialText.setText(textToTranslate);
-
-    }
-
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean doneEdit = ((CheckBox) view).isChecked();
-        EditText editedText = (EditText) findViewById(R.id.textBox);
-        if (doneEdit) {
-            textToTranslate = editedText.getText().toString(); // feed this into translator
-        }
-        // Intent intent = new Intent(EditTextActivity.this, )
+        ((Button)findViewById(R.id.doneEditButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editedText = (EditText) findViewById(R.id.textBox);
+                textToTranslate = editedText.getText().toString(); // feed this into translator
+                Intent intent = new Intent(EditTextActivity.this, MainActivity.class);
+                intent.putExtra("textToTranslate2", textToTranslate);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void getTextFromIntent() {

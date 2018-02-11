@@ -25,6 +25,9 @@ import android.widget.VideoView;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -40,6 +43,7 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
     private YouTubePlayerView playerView;
     private YouTubePlayer player;
     private View otherViews;
+    private String youtubeVideoID;
 
     private boolean fullscreen;
 
@@ -52,7 +56,7 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         otherViews = findViewById(R.id.other_views);
 
         playerView.initialize(DeveloperKey.DEVELOPER_KEY, this);
-
+        getYoutubeVideoIDFromIntent();
         doLayout();
     }
 
@@ -68,7 +72,7 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         player.addFullscreenControlFlag(YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
         player.setOnFullscreenListener(this);
         if (!wasRestored) {
-            player.loadVideo("avP5d16wEp0");
+            player.loadVideo(youtubeVideoID);
         }
     }
 
@@ -137,5 +141,15 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         doLayout();
+    }
+
+    public void getYoutubeVideoIDFromIntent() {
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("videoLinks");
+        String[] multipleURLs = url.split(Pattern.quote(" "));
+        String[] urlSplit1 = url.split(Pattern.quote("embed/"));
+        String[] urlSplit2 = urlSplit1[1].split(Pattern.quote("?"));
+        youtubeVideoID = urlSplit2[0];
+            Log.d("AAAAAA", youtubeVideoID);
     }
 }

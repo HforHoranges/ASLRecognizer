@@ -134,6 +134,47 @@ public final class OcrCaptureActivity extends Activity {
         tts = new TextToSpeech(this.getApplicationContext(), listener);*/
     }
 
+    public class GetHTML extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            String textToTranslate = "black and white";
+            for (String word : textToTranslate.split(" ")) {
+                Log.d("ocr", word);
+                String urlLink = "http://www.signasl.org/sign/" + word;
+                URL url;
+                try {
+                    url = new URL(urlLink);
+                    Log.d("ocr", "Opening url connection " + urlLink);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+
+                    BufferedReader httpInput = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuffer stringBuffer = new StringBuffer();
+                    String inputLine, video = "";
+                    while ((inputLine = httpInput.readLine()) != null) {
+                        if (inputLine.contains(".mp4")) {
+                            video = inputLine.substring(inputLine.lastIndexOf("content=") + 8);
+                            video = video.replace("\"", "");
+                            Log.d("OCR", video.toString());
+                            stringBuffer.append(video);
+                            break;
+                        }
+                    }
+                    if (video == "") {
+                        Log.d("OCR", "Sorry no video found, try again");
+                    }
+                    Log.d("ocr", "Closing connection");
+                    httpInput.close();
+
+                } catch (Exception e) {
+                    Log.e("ocr", "Could not get string from URL.");
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
+
     /**
      * Handles the requesting of the camera permission.  This includes
      * showing a "Snackbar" message of why the permission is needed then

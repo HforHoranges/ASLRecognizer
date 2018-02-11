@@ -24,6 +24,7 @@
         <activity android:name=".ASLDisplayActivity" />
         <activity android:name=".DashboardWelcomeScreen" />
         <activity android:name=".EditTextActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
