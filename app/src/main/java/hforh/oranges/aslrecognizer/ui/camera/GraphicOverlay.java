@@ -160,7 +160,7 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
     /**
      * Returns the first graphic, if any, that exists at the provided absolute screen coordinates.
      * These coordinates will be offset by the relative screen position of this view.
-     * @return First graphic containing the point, or null if no text is detected.
+     * @return First graphic containing the point, or null if no textToTranslate is detected.
      */
     public T getGraphicAtLocation(float rawX, float rawY) {
         synchronized (mLock) {

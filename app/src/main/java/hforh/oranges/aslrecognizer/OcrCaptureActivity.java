@@ -58,7 +58,7 @@ import java.net.URL;
 import java.util.Locale;
 
 /**
- * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
+ * Activity for the Ocr Detecting app.  This app detects textToTranslate and displays the value with the
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and contents of each TextBlock.
  */
@@ -98,7 +98,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
 
-        // Set good defaults for capturing text.
+        // Set good defaults for capturing textToTranslate.
         boolean autoFocus = true;
         boolean useFlash = false;
 
@@ -127,7 +127,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                             Log.d("OnInitListener", "Text to speech engine started successfully.");
                             tts.setLanguage(Locale.US);
                         } else {
-                            Log.d("OnInitListener", "Error starting the text to speech engine.");
+                            Log.d("OnInitListener", "Error starting the textToTranslate to speech engine.");
                         }
                     }
                 };
@@ -177,7 +177,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
     /**
      * Creates and starts the camera.  Note that this uses a higher resolution in comparison
-     * to other detection examples to enable the ocr detector to detect small text samples
+     * to other detection examples to enable the ocr detector to detect small textToTranslate samples
      * at long distances.
      *
      * Suppressing InlinedApi since there is a check that the minimum version is met before using
@@ -187,10 +187,10 @@ public final class OcrCaptureActivity extends AppCompatActivity {
     private void createCameraSource(boolean autoFocus, boolean useFlash) {
         Context context = getApplicationContext();
 
-        // A text recognizer is created to find text.  An associated multi-processor instance
-        // is set to receive the text recognition results, track the text, and maintain
-        // graphics for each text block on screen.  The factory is used by the multi-processor to
-        // create a separate tracker instance for each text block.
+        // A textToTranslate recognizer is created to find textToTranslate.  An associated multi-processor instance
+        // is set to receive the textToTranslate recognition results, track the textToTranslate, and maintain
+        // graphics for each textToTranslate block on screen.  The factory is used by the multi-processor to
+        // create a separate tracker instance for each textToTranslate block.
         TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
         textRecognizer.setProcessor(new OcrDetectorProcessor(mGraphicOverlay));
 
@@ -198,7 +198,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             // Note: The first time that an app using a Vision API is installed on a
             // device, GMS will download a native libraries to the device in order to do detection.
             // Usually this completes before the app is run for the first time.  But if that
-            // download has not yet completed, then the above call will not detect any text,
+            // download has not yet completed, then the above call will not detect any textToTranslate,
             // barcodes, or faces.
             //
             // isOperational() can be used to check if the required native libraries are currently
@@ -218,7 +218,7 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
 
         // Creates and starts the camera.  Note that this uses a higher resolution in comparison
-        // to other detection examples to enable the text recognizer to detect small pieces of text.
+        // to other detection examples to enable the textToTranslate recognizer to detect small pieces of textToTranslate.
         mCameraSource =
                 new CameraSource.Builder(getApplicationContext(), textRecognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -351,16 +351,17 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         if (graphic != null) {
             text = graphic.getTextBlock();
             if (text != null && text.getValue() != null) {
-                Log.d(TAG, "text data is being spoken! " + text.getValue());
-                // Speak the string.
-                // tts.speak(text.getValue(), TextToSpeech.QUEUE_ADD, null, "DEFAULT");
+                Log.d(TAG, "Sending textToTranslate to edit textToTranslate activity: " + text.getValue());
+                Intent intent = new Intent(OcrCaptureActivity.this, EditTextActivity.class);
+                intent.putExtra("textToTranslate", text.getValue());
+                startActivity(intent);
             }
             else {
-                Log.d(TAG, "text data is null");
+                Log.d(TAG, "textToTranslate data is null");
             }
         }
         else {
-            Log.d(TAG,"no text detected");
+            Log.d(TAG,"no textToTranslate detected");
         }
         return text != null;
     }
