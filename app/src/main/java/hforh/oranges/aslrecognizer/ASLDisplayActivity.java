@@ -47,6 +47,12 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         setContentView(R.layout.activity_asldisplay);
         baseLayout = (LinearLayout) findViewById(R.id.layout);
         playerView = (YouTubePlayerView) findViewById(R.id.player);
+        ((Button)findViewById(R.id.backButtton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         otherViews = findViewById(R.id.other_views);
 
         playerView.initialize(DeveloperKey.DEVELOPER_KEY, this);
@@ -214,8 +220,5 @@ public class ASLDisplayActivity extends YouTubeFailureRecoveryActivity implement
         return words;
     }
 
-    public void backButtonClick() {
-        finish();
-    }
 
 }
