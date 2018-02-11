@@ -29,7 +29,7 @@ public class EditTextActivity extends AppCompatActivity {
         boolean doneEdit = ((CheckBox) view).isChecked();
         EditText editedText = (EditText) findViewById(R.id.textBox);
         if (doneEdit) {
-            editedText.getText().toString(); // feed this into translator
+            editedText.getText().toString(); // 1. feed this into translator
         }
     }
 }
